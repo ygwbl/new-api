@@ -1,12 +1,12 @@
-FROM oven/bun:1@sha256:0733e50325078969732ebe3b15ce4c4be5082f18c4ac1a0f0ca4839c2e4e42a7 AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /build
 COPY web/default/package.json .
 COPY web/default/bun.lock .
-RUN bun install
+RUN npm install --legacy-peer-deps --no-audit --no-fund
 COPY ./web/default .
 COPY ./VERSION .
-RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) bun run build
+RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) npm run build
 
 FROM alpine:3.20 AS builder-classic
 RUN mkdir -p /build/dist && echo '<!doctype html><html><head><meta http-equiv="refresh" content="0;url=/"></head><body></body></html>' > /build/dist/index.html
