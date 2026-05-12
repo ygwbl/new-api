@@ -49,6 +49,12 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
         itemKey: 'pricing',
         to: '/pricing',
       },
+      {
+        text: t('生图'),
+        itemKey: 'imgExternal',
+        isExternal: true,
+        externalLink: 'https://img.hlat.xyz/',
+      },
       ...(docsLink
         ? [
             {
@@ -68,6 +74,9 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
 
     // 根据配置过滤导航链接
     return allLinks.filter((link) => {
+      if (link.itemKey === 'imgExternal') {
+        return true;
+      }
       if (link.itemKey === 'docs') {
         return docsLink && modules.docs;
       }

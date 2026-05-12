@@ -137,6 +137,13 @@ export function useTopNavLinks(): TopNavLink[] {
     links.push({ title: t('Model Square'), href: '/pricing', disabled })
   }
 
+  // 生图 (external)
+  links.push({
+    title: t('生图'),
+    href: 'https://img.hlat.xyz/',
+    external: true,
+  })
+
   // Rankings
   const rankings = modules?.rankings
   if (rankings && typeof rankings === 'object' && rankings.enabled) {
