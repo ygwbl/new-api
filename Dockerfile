@@ -8,7 +8,7 @@ COPY ./web/default .
 COPY ./VERSION .
 RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) npm run build
 
-FROM alpine:3.20 AS builder-classic
+FROM node:20-alpine AS builder-classic
 RUN mkdir -p /build/dist && echo '<!doctype html><html><head><meta http-equiv="refresh" content="0;url=/"></head><body></body></html>' > /build/dist/index.html
 
 FROM golang:1.26.1-alpine@sha256:2389ebfa5b7f43eeafbd6be0c3700cc46690ef842ad962f6c5bd6be49ed82039 AS builder2
